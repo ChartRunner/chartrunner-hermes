@@ -1,0 +1,12 @@
+name: chartrunner
+version: 0.1.0
+description: "Read ChartRunner radar, cup results, and Solana memo checks, and open the app for a spot review, a perp chart, a room, or a battle. Hermes never signs."
+author: ChartRunner
+provides_tools:
+  - chartrunner_verify
+  - chartrunner_cup
+  - chartrunner_radar
+  - chartrunner_spot
+  - chartrunner_perps
+  - chartrunner_room
+  - chartrunner_battle

@@ -1,0 +1,7 @@
+ChartRunner Hermes plugin
+Copyright 2026 ChartRunner
+
+The memo checker follows SPEC.md in https://github.com/ChartRunner/chartrunner-onchain
+test-vectors/v1.json is a byte-for-byte copy of that repository's vectors.
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).

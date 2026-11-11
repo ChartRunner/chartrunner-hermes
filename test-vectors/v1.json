@@ -1,0 +1,1949 @@
+{
+  "format": "chartrunner-anchor-test-vectors",
+  "formatVersion": 1,
+  "spec": "SPEC.md (chartrunner:v1)",
+  "note": "Frozen. Values are produced by scripts/gen-vectors.mjs from the spec with node:crypto, independently of @chartrunner/verify. Never edit a value; only append new vectors.",
+  "memoProgramId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+  "kinds": [
+    {
+      "kind": "freeplay",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    },
+    {
+      "kind": "daily",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    },
+    {
+      "kind": "cup",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    },
+    {
+      "kind": "xp",
+      "signer": "operator",
+      "status": "reserved",
+      "count": "any"
+    },
+    {
+      "kind": "map",
+      "signer": "user",
+      "status": "planned",
+      "count": "one"
+    },
+    {
+      "kind": "strategy",
+      "signer": "user",
+      "status": "planned",
+      "count": "one"
+    },
+    {
+      "kind": "bot",
+      "signer": "user",
+      "status": "planned",
+      "count": "one"
+    },
+    {
+      "kind": "backtest",
+      "signer": "user",
+      "status": "planned",
+      "count": "one"
+    },
+    {
+      "kind": "dailyrun",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    },
+    {
+      "kind": "dailyrace",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    },
+    {
+      "kind": "battle",
+      "signer": "operator",
+      "status": "active",
+      "count": "any"
+    }
+  ],
+  "pseudonyms": [
+    {
+      "fn": "userHash",
+      "input": "user-0001",
+      "output": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10"
+    },
+    {
+      "fn": "handleHash",
+      "input": "Alice",
+      "output": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee"
+    },
+    {
+      "fn": "handleHash",
+      "input": "ALICE",
+      "output": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee"
+    },
+    {
+      "fn": "runHash",
+      "input": "run-0001",
+      "output": "195f3dff46af445a2a0d79cab0fd6d66defdd244cf0e612fb8a538e1bca26bb1"
+    }
+  ],
+  "canonical": [
+    {
+      "name": "key order and no whitespace",
+      "row": {
+        "s": 1,
+        "id": "a"
+      },
+      "canonical": "{\"id\":\"a\",\"s\":1}",
+      "leafHash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+    },
+    {
+      "name": "all value types",
+      "row": {
+        "str": "x",
+        "int": -42,
+        "zero": 0,
+        "t": true,
+        "f": false,
+        "n": null
+      },
+      "canonical": "{\"f\":false,\"int\":-42,\"n\":null,\"str\":\"x\",\"t\":true,\"zero\":0}",
+      "leafHash": "2ac55619bee000c53af6ba2142d95edfd3bd36dfa30810a289fc81a9418824cb"
+    },
+    {
+      "name": "largest safe integers",
+      "row": {
+        "max": 9007199254740991,
+        "min": -9007199254740991
+      },
+      "canonical": "{\"max\":9007199254740991,\"min\":-9007199254740991}",
+      "leafHash": "35457a81ba53f3cd44c686b87486c08def7a8918521cffea708e8f9dd3f2d315"
+    },
+    {
+      "name": "string escaping",
+      "row": {
+        "q": "say \"hi\"",
+        "bs": "a\\b",
+        "nl": "line\nbreak",
+        "tab": "\t",
+        "nul": "\u0000",
+        "bell": "\u0007",
+        "del": ""
+      },
+      "canonical": "{\"bell\":\"\\u0007\",\"bs\":\"a\\\\b\",\"del\":\"\",\"nl\":\"line\\nbreak\",\"nul\":\"\\u0000\",\"q\":\"say \\\"hi\\\"\",\"tab\":\"\\t\"}",
+      "leafHash": "101f66977b8a90affddd1c1c43abf4a62ea4ad631b91ab3c1ea287a1f5470b29"
+    },
+    {
+      "name": "non-ASCII stays literal UTF-8",
+      "row": {
+        "name": "Zoë",
+        "city": "東京",
+        "emoji": "🚀",
+        "sep": " "
+      },
+      "canonical": "{\"city\":\"東京\",\"emoji\":\"🚀\",\"name\":\"Zoë\",\"sep\":\" \"}",
+      "leafHash": "2f80897fc0a215fffb47f3cfdbe9a94689bf0c6c4f9920aa5304be576ac42c30"
+    },
+    {
+      "name": "keys sort by UTF-16 code unit, not code point",
+      "row": {
+        "～": 1,
+        "😀": 2,
+        "é": 3,
+        "a": 4,
+        "B": 5,
+        "": 6
+      },
+      "canonical": "{\"\":6,\"B\":5,\"a\":4,\"é\":3,\"😀\":2,\"～\":1}",
+      "leafHash": "ea664f9ce6828bdc10c528fd941766d9ca754c25d3a9f93726442b8e2c47c50d"
+    },
+    {
+      "name": "empty object",
+      "row": {},
+      "canonical": "{}",
+      "leafHash": "28a3a18f6cd6406b086e9ffda1f9b8a13dbcf44b0f3f32cb9031a11fd053acf9"
+    }
+  ],
+  "invalidRows": [
+    {
+      "name": "float",
+      "row": {
+        "s": 1.5
+      }
+    },
+    {
+      "name": "unsafe integer",
+      "row": {
+        "s": 9007199254740992
+      }
+    },
+    {
+      "name": "nested object",
+      "row": {
+        "o": {
+          "a": 1
+        }
+      }
+    },
+    {
+      "name": "array",
+      "row": {
+        "a": [
+          1,
+          2
+        ]
+      }
+    }
+  ],
+  "nodes": [
+    {
+      "left": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5",
+      "right": "d1641b01a52a717dbea038563bd59b8a568c2e21cea20794706d4ced9877a95b",
+      "node": "fc12c52058e95d3e1a498f09dab9f5d30bcecbc746b6643526f2eaefae844699"
+    }
+  ],
+  "trees": [
+    {
+      "name": "one row: root is the leaf hash",
+      "kind": "cup",
+      "id": "vector-1",
+      "rows": [
+        {
+          "id": "a",
+          "s": 1
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"id\":\"a\",\"s\":1}",
+          "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+        }
+      ],
+      "root": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5",
+      "count": 1,
+      "memo": "chartrunner:v1:cup:vector-1:fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5:1",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"id\":\"a\",\"s\":1}",
+          "proof": []
+        }
+      ]
+    },
+    {
+      "name": "two rows",
+      "kind": "cup",
+      "id": "vector-2",
+      "rows": [
+        {
+          "id": "a",
+          "s": 1
+        },
+        {
+          "id": "b",
+          "s": 2
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"id\":\"b\",\"s\":2}",
+          "hash": "d1641b01a52a717dbea038563bd59b8a568c2e21cea20794706d4ced9877a95b"
+        },
+        {
+          "canonical": "{\"id\":\"a\",\"s\":1}",
+          "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+        }
+      ],
+      "root": "a17e226e3b86e457dd861c5cf0062480fa31445e9576a60327f1657120806579",
+      "count": 2,
+      "memo": "chartrunner:v1:cup:vector-2:a17e226e3b86e457dd861c5cf0062480fa31445e9576a60327f1657120806579:2",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"id\":\"b\",\"s\":2}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "leaf": "{\"id\":\"a\",\"s\":1}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "d1641b01a52a717dbea038563bd59b8a568c2e21cea20794706d4ced9877a95b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "three rows: last node promoted",
+      "kind": "cup",
+      "id": "vector-3",
+      "rows": [
+        {
+          "id": "c",
+          "s": 3
+        },
+        {
+          "id": "a",
+          "s": 1
+        },
+        {
+          "id": "b",
+          "s": 2
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"id\":\"b\",\"s\":2}",
+          "hash": "d1641b01a52a717dbea038563bd59b8a568c2e21cea20794706d4ced9877a95b"
+        },
+        {
+          "canonical": "{\"id\":\"c\",\"s\":3}",
+          "hash": "f0c0498e9ab8c5c6c93d73de2151498561a0bec34bb7f4392788aa82415a001c"
+        },
+        {
+          "canonical": "{\"id\":\"a\",\"s\":1}",
+          "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+        }
+      ],
+      "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+      "count": 3,
+      "memo": "chartrunner:v1:cup:vector-3:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"id\":\"b\",\"s\":2}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "f0c0498e9ab8c5c6c93d73de2151498561a0bec34bb7f4392788aa82415a001c"
+            },
+            {
+              "side": "R",
+              "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "leaf": "{\"id\":\"c\",\"s\":3}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "d1641b01a52a717dbea038563bd59b8a568c2e21cea20794706d4ced9877a95b"
+            },
+            {
+              "side": "R",
+              "hash": "fb94af131c58f06a58853b517f9f76773fb42bc7a188d737d06c5ac8cbe549f5"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "leaf": "{\"id\":\"a\",\"s\":1}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "46cde335864d5d861c10049a2218bc448980f4d0ca7c3579de383eac84f67471"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "four rows: full tree",
+      "kind": "cup",
+      "id": "vector-4",
+      "rows": [
+        {
+          "i": 0,
+          "name": "p0",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 1,
+          "name": "p1",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 2,
+          "name": "p2",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 3,
+          "name": "p3",
+          "ok": false,
+          "none": null
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+        },
+        {
+          "canonical": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+        },
+        {
+          "canonical": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+        },
+        {
+          "canonical": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+        }
+      ],
+      "root": "cfe8b77f2aa1260bbd9d96e5840e50c7fdb9fac2b74797179c3ccf0245d39aac",
+      "count": 4,
+      "memo": "chartrunner:v1:cup:vector-4:cfe8b77f2aa1260bbd9d96e5840e50c7fdb9fac2b74797179c3ccf0245d39aac:4",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+            },
+            {
+              "side": "R",
+              "hash": "441882a2c3a2c3f346f76689b74bd682185280e118868ec9f3f6a9ff706dd2fc"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "leaf": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+            },
+            {
+              "side": "R",
+              "hash": "441882a2c3a2c3f346f76689b74bd682185280e118868ec9f3f6a9ff706dd2fc"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "leaf": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            },
+            {
+              "side": "L",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "leaf": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+            },
+            {
+              "side": "L",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "five rows: promotion across two levels",
+      "kind": "cup",
+      "id": "vector-5",
+      "rows": [
+        {
+          "i": 0,
+          "name": "p0",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 1,
+          "name": "p1",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 2,
+          "name": "p2",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 3,
+          "name": "p3",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 4,
+          "name": "p4",
+          "ok": true,
+          "none": null
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+        },
+        {
+          "canonical": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+        },
+        {
+          "canonical": "{\"i\":4,\"name\":\"p4\",\"none\":null,\"ok\":true}",
+          "hash": "66db45a68656d52d40ad038d5c50ea84b6b68b9df9639874ecd4e2a10f90cf25"
+        },
+        {
+          "canonical": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+        },
+        {
+          "canonical": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+        }
+      ],
+      "root": "da8a5bd4114ae3f7c48948021d5ecf5c203d4eb8b0117f28abea19623180da74",
+      "count": 5,
+      "memo": "chartrunner:v1:cup:vector-5:da8a5bd4114ae3f7c48948021d5ecf5c203d4eb8b0117f28abea19623180da74:5",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+            },
+            {
+              "side": "R",
+              "hash": "52b38b220b2608fe92703ec62e20150b2ffed51090e121c0fa7dce511d38aeb4"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "leaf": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+            },
+            {
+              "side": "R",
+              "hash": "52b38b220b2608fe92703ec62e20150b2ffed51090e121c0fa7dce511d38aeb4"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "leaf": "{\"i\":4,\"name\":\"p4\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+            },
+            {
+              "side": "L",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "leaf": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "66db45a68656d52d40ad038d5c50ea84b6b68b9df9639874ecd4e2a10f90cf25"
+            },
+            {
+              "side": "L",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "leaf": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "b2cbe592c2079f3116586d177dc78b0924f5a29a5e9e5528c70d46f569bebf91"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "seven rows",
+      "kind": "cup",
+      "id": "vector-6",
+      "rows": [
+        {
+          "i": 0,
+          "name": "p0",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 1,
+          "name": "p1",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 2,
+          "name": "p2",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 3,
+          "name": "p3",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 4,
+          "name": "p4",
+          "ok": true,
+          "none": null
+        },
+        {
+          "i": 5,
+          "name": "p5",
+          "ok": false,
+          "none": null
+        },
+        {
+          "i": 6,
+          "name": "p6",
+          "ok": true,
+          "none": null
+        }
+      ],
+      "sortedLeaves": [
+        {
+          "canonical": "{\"i\":5,\"name\":\"p5\",\"none\":null,\"ok\":false}",
+          "hash": "39738f48b33b68ee41e23fa16fe5a7084a4a5561c7f8afbe6930986495105a24"
+        },
+        {
+          "canonical": "{\"i\":6,\"name\":\"p6\",\"none\":null,\"ok\":true}",
+          "hash": "4df20ed03b6f36de916ef4e47e6721cc286ed73a6ea3187792d7c9ef7244a8dd"
+        },
+        {
+          "canonical": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+        },
+        {
+          "canonical": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+        },
+        {
+          "canonical": "{\"i\":4,\"name\":\"p4\",\"none\":null,\"ok\":true}",
+          "hash": "66db45a68656d52d40ad038d5c50ea84b6b68b9df9639874ecd4e2a10f90cf25"
+        },
+        {
+          "canonical": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+        },
+        {
+          "canonical": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+        }
+      ],
+      "root": "05998efb2c2b43387cc876f94429b7ebb6847de24921060638f32288ba52d106",
+      "count": 7,
+      "memo": "chartrunner:v1:cup:vector-6:05998efb2c2b43387cc876f94429b7ebb6847de24921060638f32288ba52d106:7",
+      "proofs": [
+        {
+          "index": 0,
+          "leaf": "{\"i\":5,\"name\":\"p5\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "4df20ed03b6f36de916ef4e47e6721cc286ed73a6ea3187792d7c9ef7244a8dd"
+            },
+            {
+              "side": "R",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            },
+            {
+              "side": "R",
+              "hash": "cec2ff9743ef14b602717b7d421649773eea2d4989a35846d960562a293e90ab"
+            }
+          ]
+        },
+        {
+          "index": 1,
+          "leaf": "{\"i\":6,\"name\":\"p6\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "39738f48b33b68ee41e23fa16fe5a7084a4a5561c7f8afbe6930986495105a24"
+            },
+            {
+              "side": "R",
+              "hash": "d903568fdcca686c8c14a7ba81a99d1b7080203dea47ac74715a71b45c90db83"
+            },
+            {
+              "side": "R",
+              "hash": "cec2ff9743ef14b602717b7d421649773eea2d4989a35846d960562a293e90ab"
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "leaf": "{\"i\":2,\"name\":\"p2\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "5f86ecd4613c1e43e685dd25d5f290ef426dab1ee0142d38afd0d878efd8b3c6"
+            },
+            {
+              "side": "L",
+              "hash": "7a27b88b14dd96618c1f795cabc9f8e318875d36328aa379c5622e5590d8c1fc"
+            },
+            {
+              "side": "R",
+              "hash": "cec2ff9743ef14b602717b7d421649773eea2d4989a35846d960562a293e90ab"
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "leaf": "{\"i\":1,\"name\":\"p1\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "55f3f502a44a3ab8feaac5c155ff30fcebf2afaa818774d74ef5019699e9a0a7"
+            },
+            {
+              "side": "L",
+              "hash": "7a27b88b14dd96618c1f795cabc9f8e318875d36328aa379c5622e5590d8c1fc"
+            },
+            {
+              "side": "R",
+              "hash": "cec2ff9743ef14b602717b7d421649773eea2d4989a35846d960562a293e90ab"
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "leaf": "{\"i\":4,\"name\":\"p4\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "R",
+              "hash": "923331153b502fc0728bfaaf1d0594fb517de0b43384f02426e5b5b505cde3a9"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            },
+            {
+              "side": "L",
+              "hash": "b1f0a0d9d0824ae55620ab3545be3196d2f2ef1a7cab9b64e6ee0ebab7207b4d"
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "leaf": "{\"i\":3,\"name\":\"p3\",\"none\":null,\"ok\":false}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "66db45a68656d52d40ad038d5c50ea84b6b68b9df9639874ecd4e2a10f90cf25"
+            },
+            {
+              "side": "R",
+              "hash": "c348e9ea28d6761418aaee6416b6d94410ead0579127186e54a73a94c62b167c"
+            },
+            {
+              "side": "L",
+              "hash": "b1f0a0d9d0824ae55620ab3545be3196d2f2ef1a7cab9b64e6ee0ebab7207b4d"
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "leaf": "{\"i\":0,\"name\":\"p0\",\"none\":null,\"ok\":true}",
+          "proof": [
+            {
+              "side": "L",
+              "hash": "52b38b220b2608fe92703ec62e20150b2ffed51090e121c0fa7dce511d38aeb4"
+            },
+            {
+              "side": "L",
+              "hash": "b1f0a0d9d0824ae55620ab3545be3196d2f2ef1a7cab9b64e6ee0ebab7207b4d"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "duplicates": [
+    {
+      "name": "same row twice",
+      "rows": [
+        {
+          "id": "a",
+          "s": 1
+        },
+        {
+          "id": "a",
+          "s": 1
+        }
+      ]
+    },
+    {
+      "name": "same row with a different key order",
+      "rows": [
+        {
+          "id": "a",
+          "s": 1
+        },
+        {
+          "s": 1,
+          "id": "a"
+        }
+      ]
+    }
+  ],
+  "cup": {
+    "cupId": "cup-vector-1",
+    "standings": [
+      {
+        "rank": 1,
+        "userId": "user-0001",
+        "name": "Alice",
+        "equity": "11250.500000",
+        "pnlPct": "12.5050",
+        "trades": 14,
+        "disqualified": false,
+        "fillsHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "rank": 2,
+        "userId": "user-0002",
+        "name": "Bob",
+        "equity": "10100.000000",
+        "pnlPct": "1.0000",
+        "trades": 3,
+        "disqualified": false,
+        "fillsHash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "rank": 3,
+        "userId": "user-0003",
+        "name": "Cy",
+        "equity": "5000.000000",
+        "pnlPct": "-50.0000",
+        "trades": 40,
+        "disqualified": true,
+        "fillsHash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    ],
+    "leaves": [
+      {
+        "v": 1,
+        "k": "cup",
+        "id": "cup-vector-1",
+        "rank": 1,
+        "u": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10",
+        "h": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee",
+        "eq": "11250.500000",
+        "pct": "12.5050",
+        "tr": 14,
+        "dq": false,
+        "fh": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      {
+        "v": 1,
+        "k": "cup",
+        "id": "cup-vector-1",
+        "rank": 2,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "eq": "10100.000000",
+        "pct": "1.0000",
+        "tr": 3,
+        "dq": false,
+        "fh": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "v": 1,
+        "k": "cup",
+        "id": "cup-vector-1",
+        "rank": 3,
+        "u": "ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6",
+        "h": "37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a",
+        "eq": "5000.000000",
+        "pct": "-50.0000",
+        "tr": 40,
+        "dq": true,
+        "fh": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    ],
+    "root": "78455195b53abbd802140deccde0f5f8f483781af0cb4ba9ef8359ba169280e3",
+    "count": 3,
+    "memo": "chartrunner:v1:cup:cup-vector-1:78455195b53abbd802140deccde0f5f8f483781af0cb4ba9ef8359ba169280e3:3"
+  },
+  "board": {
+    "kind": "daily",
+    "date": "2026-10-02",
+    "rows": [
+      {
+        "rank": 1,
+        "userId": "user-0001",
+        "handle": "Alice",
+        "runId": "run-0001",
+        "score": 90,
+        "distance": 20
+      },
+      {
+        "rank": 2,
+        "userId": "user-0002",
+        "handle": "bob",
+        "runId": "run-0002",
+        "score": 75,
+        "distance": 18
+      },
+      {
+        "rank": 2,
+        "userId": "user-0003",
+        "handle": "Cy",
+        "runId": "run-0003",
+        "score": 75,
+        "distance": 30
+      }
+    ],
+    "leaves": [
+      {
+        "v": 1,
+        "k": "daily",
+        "d": "2026-10-02",
+        "rank": 1,
+        "u": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10",
+        "h": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee",
+        "s": 90,
+        "dist": 20,
+        "r": "195f3dff46af445a2a0d79cab0fd6d66defdd244cf0e612fb8a538e1bca26bb1"
+      },
+      {
+        "v": 1,
+        "k": "daily",
+        "d": "2026-10-02",
+        "rank": 2,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "s": 75,
+        "dist": 18,
+        "r": "983efefbdcd1d681ed287bfff901d8ffd004ea20584523e15291448f533578cf"
+      },
+      {
+        "v": 1,
+        "k": "daily",
+        "d": "2026-10-02",
+        "rank": 2,
+        "u": "ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6",
+        "h": "37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a",
+        "s": 75,
+        "dist": 30,
+        "r": "91dd0bfdca9801aadcce0e7ad5d23e8f51c3c6c50b4f452115c1c38d1f5d28eb"
+      }
+    ],
+    "root": "c3821e8ea50485711771c6f20087bc51e9b94051f470518cd61c5732230c9a1c",
+    "count": 3,
+    "memo": "chartrunner:v1:daily:2026-10-02:c3821e8ea50485711771c6f20087bc51e9b94051f470518cd61c5732230c9a1c:3"
+  },
+  "memos": {
+    "valid": [
+      {
+        "text": "chartrunner:v1:cup:cup-2026.10:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3",
+        "fields": {
+          "kind": "cup",
+          "id": "cup-2026.10",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 3
+        }
+      },
+      {
+        "text": "chartrunner:v1:daily:2026-10-02:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "daily",
+          "id": "2026-10-02",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      },
+      {
+        "text": "chartrunner:v1:freeplay:2026-10-02:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:999999999",
+        "fields": {
+          "kind": "freeplay",
+          "id": "2026-10-02",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 999999999
+        }
+      },
+      {
+        "text": "chartrunner:v1:xp:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:12",
+        "fields": {
+          "kind": "xp",
+          "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 12
+        }
+      },
+      {
+        "text": "chartrunner:v1:cup:A_b.c-9:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:42",
+        "fields": {
+          "kind": "cup",
+          "id": "A_b.c-9",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 42
+        }
+      },
+      {
+        "text": "chartrunner:v1:map:ent_01J9.x-y:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "map",
+          "id": "ent_01J9.x-y",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      },
+      {
+        "text": "chartrunner:v1:strategy:s-1:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "strategy",
+          "id": "s-1",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      },
+      {
+        "text": "chartrunner:v1:bot:b-1:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "bot",
+          "id": "b-1",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      },
+      {
+        "text": "chartrunner:v1:backtest:bt-1:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "backtest",
+          "id": "bt-1",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      },
+      {
+        "text": "chartrunner:v1:dailyrun:2026-10-12:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:4",
+        "fields": {
+          "kind": "dailyrun",
+          "id": "2026-10-12",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 4
+        }
+      },
+      {
+        "text": "chartrunner:v1:dailyrace:2026-10-12:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3",
+        "fields": {
+          "kind": "dailyrace",
+          "id": "2026-10-12",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 3
+        }
+      },
+      {
+        "text": "chartrunner:v1:battle:2026-10-19T04:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:5",
+        "fields": {
+          "kind": "battle",
+          "id": "2026-10-19T04",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 5
+        }
+      },
+      {
+        "text": "chartrunner:v1:battle:2026-10-19T20:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:10000",
+        "fields": {
+          "kind": "battle",
+          "id": "2026-10-19T20",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 10000
+        }
+      },
+      {
+        "text": "chartrunner:v1:battle:2028-02-29T00:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1",
+        "fields": {
+          "kind": "battle",
+          "id": "2028-02-29T00",
+          "root": "0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92",
+          "count": 1
+        }
+      }
+    ],
+    "invalid": [
+      {
+        "name": "empty",
+        "text": ""
+      },
+      {
+        "name": "trailing space",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3 "
+      },
+      {
+        "name": "leading space",
+        "text": " chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "trailing newline",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3\n"
+      },
+      {
+        "name": "other version",
+        "text": "chartrunner:v2:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "unknown kind",
+        "text": "chartrunner:v1:nope:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "uppercase kind",
+        "text": "chartrunner:v1:CUP:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "uppercase root",
+        "text": "chartrunner:v1:cup:x:0E35F6C675E52D251F7E0B25C5FB5D8B728344EEA7F519F70FFC950651D95F92:3"
+      },
+      {
+        "name": "short root",
+        "text": "chartrunner:v1:cup:x:e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "zero count",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:0"
+      },
+      {
+        "name": "leading-zero count",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:03"
+      },
+      {
+        "name": "ten-digit count",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1000000000"
+      },
+      {
+        "name": "extra field",
+        "text": "chartrunner:v1:cup:x:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3:extra"
+      },
+      {
+        "name": "empty id",
+        "text": "chartrunner:v1:cup::0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "id too long",
+        "text": "chartrunner:v1:cup:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "id with a space",
+        "text": "chartrunner:v1:cup:a b:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "legacy cr1 memo",
+        "text": "cr1:map:Example:abababababababababababababababababababababababababababababababab"
+      },
+      {
+        "name": "user kind with count 2",
+        "text": "chartrunner:v1:map:e1:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:2"
+      },
+      {
+        "name": "user kind with a free-text name as id",
+        "text": "chartrunner:v1:map:My Map:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:1"
+      },
+      {
+        "name": "hyphenated kind",
+        "text": "chartrunner:v1:daily-run:2026-10-12:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "kind with an underscore",
+        "text": "chartrunner:v1:daily_race:2026-10-12:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "mixed-case new kind",
+        "text": "chartrunner:v1:dailyRun:2026-10-12:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window hour not a multiple of 4",
+        "text": "chartrunner:v1:battle:2026-10-19T03:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window hour 24",
+        "text": "chartrunner:v1:battle:2026-10-19T24:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window on a date that does not exist",
+        "text": "chartrunner:v1:battle:2026-02-30T00:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window on Feb 29 of a common year",
+        "text": "chartrunner:v1:battle:2026-02-29T00:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window without the T",
+        "text": "chartrunner:v1:battle:2026-10-1904:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window with only a date",
+        "text": "chartrunner:v1:battle:2026-10-19:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window with a one-digit hour",
+        "text": "chartrunner:v1:battle:2026-10-19T4:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle window with a lowercase t",
+        "text": "chartrunner:v1:battle:2026-10-19t04:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "uppercase battle kind",
+        "text": "chartrunner:v1:BATTLE:2026-10-19T04:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "mixed-case battle kind",
+        "text": "chartrunner:v1:Battle:2026-10-19T04:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:3"
+      },
+      {
+        "name": "battle anchor over 10000 leaves",
+        "text": "chartrunner:v1:battle:2026-10-19T04:0e35f6c675e52d251f7e0b25c5fb5d8b728344eea7f519f70ffc950651d95f92:10001"
+      }
+    ]
+  },
+  "legacyCr1": {
+    "valid": [
+      {
+        "text": "cr1:map:First map:abababababababababababababababababababababababababababababababab",
+        "fields": {
+          "version": "cr1",
+          "kind": "map",
+          "name": "First map",
+          "contentHash": "abababababababababababababababababababababababababababababababab"
+        }
+      },
+      {
+        "text": "cr1:map:Map 🗺:abababababababababababababababababababababababababababababababab",
+        "fields": {
+          "version": "cr1",
+          "kind": "map",
+          "name": "Map 🗺",
+          "contentHash": "abababababababababababababababababababababababababababababababab"
+        }
+      }
+    ],
+    "invalid": [
+      {
+        "name": "unknown legacy kind",
+        "text": "cr1:strategy:Name:abababababababababababababababababababababababababababababababab"
+      },
+      {
+        "name": "empty name",
+        "text": "cr1:map::abababababababababababababababababababababababababababababababab"
+      },
+      {
+        "name": "name over 64 UTF-8 bytes",
+        "text": "cr1:map:ééééééééééééééééééééééééééééééééé:abababababababababababababababababababababababababababababababab"
+      },
+      {
+        "name": "colon in name",
+        "text": "cr1:map:a:b:abababababababababababababababababababababababababababababababab"
+      },
+      {
+        "name": "uppercase hash",
+        "text": "cr1:map:Name:ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+      },
+      {
+        "name": "other version",
+        "text": "cr2:map:Name:abababababababababababababababababababababababababababababababab"
+      }
+    ]
+  },
+  "dailyRun": {
+    "kind": "dailyrun",
+    "date": "2026-10-12",
+    "rows": [
+      {
+        "rank": 1,
+        "userId": "user-0001",
+        "handle": "Alice",
+        "runId": "run-0101",
+        "score": 120,
+        "distance": 41,
+        "hardcore": true,
+        "finished": true
+      },
+      {
+        "rank": 2,
+        "userId": "user-0002",
+        "handle": "bob",
+        "runId": "run-0102",
+        "score": 88,
+        "distance": 35,
+        "hardcore": false,
+        "finished": true
+      },
+      {
+        "rank": 2,
+        "userId": "user-0003",
+        "handle": "Cy",
+        "runId": "run-0103",
+        "score": 88,
+        "distance": 22,
+        "hardcore": false,
+        "finished": false
+      },
+      {
+        "rank": 4,
+        "userId": "user-0004",
+        "handle": "Dee",
+        "runId": "run-0104",
+        "score": 0,
+        "distance": 3,
+        "hardcore": true,
+        "finished": false
+      }
+    ],
+    "leaves": [
+      {
+        "v": 1,
+        "k": "dailyrun",
+        "d": "2026-10-12",
+        "rank": 1,
+        "u": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10",
+        "h": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee",
+        "s": 120,
+        "dist": 41,
+        "hc": true,
+        "fin": true,
+        "r": "7dc8f6001af6f32f7af48784f83e0dc904364df93f92beb23bd8f0a4cc2d6ad4"
+      },
+      {
+        "v": 1,
+        "k": "dailyrun",
+        "d": "2026-10-12",
+        "rank": 2,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "s": 88,
+        "dist": 35,
+        "hc": false,
+        "fin": true,
+        "r": "332174895e3107f7493cd37116ee36afb22969471fbb796607e6e7885bf1074b"
+      },
+      {
+        "v": 1,
+        "k": "dailyrun",
+        "d": "2026-10-12",
+        "rank": 2,
+        "u": "ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6",
+        "h": "37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a",
+        "s": 88,
+        "dist": 22,
+        "hc": false,
+        "fin": false,
+        "r": "615281b48859ceb793b4a70af5247767c397e52ff08da31f03b008f0220d0d28"
+      },
+      {
+        "v": 1,
+        "k": "dailyrun",
+        "d": "2026-10-12",
+        "rank": 4,
+        "u": "58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4",
+        "h": "263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938",
+        "s": 0,
+        "dist": 3,
+        "hc": true,
+        "fin": false,
+        "r": "51e6e5b7d1fa49623cd979bc037742a5d183cb54356dbed13a3bf97415489aec"
+      }
+    ],
+    "root": "65d46a4da638bb6610987e62e96afd8641aa171130b58fe78544162753c5be41",
+    "count": 4,
+    "memo": "chartrunner:v1:dailyrun:2026-10-12:65d46a4da638bb6610987e62e96afd8641aa171130b58fe78544162753c5be41:4",
+    "sortedLeaves": [
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":22,\"fin\":false,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"hc\":false,\"k\":\"dailyrun\",\"r\":\"615281b48859ceb793b4a70af5247767c397e52ff08da31f03b008f0220d0d28\",\"rank\":2,\"s\":88,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "hash": "15789cd5852b86acc1439f1b636d2ce0d290612a5fea282a84039bb7f8f51a87"
+      },
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":35,\"fin\":true,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"hc\":false,\"k\":\"dailyrun\",\"r\":\"332174895e3107f7493cd37116ee36afb22969471fbb796607e6e7885bf1074b\",\"rank\":2,\"s\":88,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "hash": "3b4c2fc138bb52f1c685dbf27ad6bbde142273d16e4e3bbab73ab245db920bc4"
+      },
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":41,\"fin\":true,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"hc\":true,\"k\":\"dailyrun\",\"r\":\"7dc8f6001af6f32f7af48784f83e0dc904364df93f92beb23bd8f0a4cc2d6ad4\",\"rank\":1,\"s\":120,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "hash": "5488de3dc4001baf1fb6ffb6c6f625b4614efab314c482c95abe2c3d0868459a"
+      },
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":3,\"fin\":false,\"h\":\"263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938\",\"hc\":true,\"k\":\"dailyrun\",\"r\":\"51e6e5b7d1fa49623cd979bc037742a5d183cb54356dbed13a3bf97415489aec\",\"rank\":4,\"s\":0,\"u\":\"58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4\",\"v\":1}",
+        "hash": "683b83149a38d40e824f2cdef5817fa78f8a1a5dc0f3e32e41cb7aabd754174a"
+      }
+    ],
+    "proofs": [
+      {
+        "index": 0,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":22,\"fin\":false,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"hc\":false,\"k\":\"dailyrun\",\"r\":\"615281b48859ceb793b4a70af5247767c397e52ff08da31f03b008f0220d0d28\",\"rank\":2,\"s\":88,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "proof": [
+          {
+            "side": "R",
+            "hash": "3b4c2fc138bb52f1c685dbf27ad6bbde142273d16e4e3bbab73ab245db920bc4"
+          },
+          {
+            "side": "R",
+            "hash": "963008e7d5d40ba0ed3c1ac851973bee83f8ef1aaf85001061f2fa36b0a122c0"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":35,\"fin\":true,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"hc\":false,\"k\":\"dailyrun\",\"r\":\"332174895e3107f7493cd37116ee36afb22969471fbb796607e6e7885bf1074b\",\"rank\":2,\"s\":88,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "15789cd5852b86acc1439f1b636d2ce0d290612a5fea282a84039bb7f8f51a87"
+          },
+          {
+            "side": "R",
+            "hash": "963008e7d5d40ba0ed3c1ac851973bee83f8ef1aaf85001061f2fa36b0a122c0"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":41,\"fin\":true,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"hc\":true,\"k\":\"dailyrun\",\"r\":\"7dc8f6001af6f32f7af48784f83e0dc904364df93f92beb23bd8f0a4cc2d6ad4\",\"rank\":1,\"s\":120,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "proof": [
+          {
+            "side": "R",
+            "hash": "683b83149a38d40e824f2cdef5817fa78f8a1a5dc0f3e32e41cb7aabd754174a"
+          },
+          {
+            "side": "L",
+            "hash": "25b8510f6cdf3cf46ccb34d0ee9b06f607a6a549f6ca5cb2a35196774d75a444"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":3,\"fin\":false,\"h\":\"263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938\",\"hc\":true,\"k\":\"dailyrun\",\"r\":\"51e6e5b7d1fa49623cd979bc037742a5d183cb54356dbed13a3bf97415489aec\",\"rank\":4,\"s\":0,\"u\":\"58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "5488de3dc4001baf1fb6ffb6c6f625b4614efab314c482c95abe2c3d0868459a"
+          },
+          {
+            "side": "L",
+            "hash": "25b8510f6cdf3cf46ccb34d0ee9b06f607a6a549f6ca5cb2a35196774d75a444"
+          }
+        ]
+      }
+    ]
+  },
+  "dailyRace": {
+    "kind": "dailyrace",
+    "date": "2026-10-12",
+    "rows": [
+      {
+        "rank": 1,
+        "userId": "user-0002",
+        "handle": "bob",
+        "runId": "run-0201",
+        "finishTick": 5400,
+        "distance": 60,
+        "hardcore": false
+      },
+      {
+        "rank": 1,
+        "userId": "user-0003",
+        "handle": "Cy",
+        "runId": "run-0202",
+        "finishTick": 5400,
+        "distance": 60,
+        "hardcore": true
+      },
+      {
+        "rank": 3,
+        "userId": "user-0001",
+        "handle": "Alice",
+        "runId": "run-0203",
+        "finishTick": 7199,
+        "distance": 60,
+        "hardcore": false
+      }
+    ],
+    "leaves": [
+      {
+        "v": 1,
+        "k": "dailyrace",
+        "d": "2026-10-12",
+        "rank": 1,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "ft": 5400,
+        "dist": 60,
+        "hc": false,
+        "r": "ef6d18ed5e5e81483b1765b08763241ef6a410fe2dee8736755da5d13eba91b7"
+      },
+      {
+        "v": 1,
+        "k": "dailyrace",
+        "d": "2026-10-12",
+        "rank": 1,
+        "u": "ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6",
+        "h": "37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a",
+        "ft": 5400,
+        "dist": 60,
+        "hc": true,
+        "r": "6d2ce8630d8467200a3f5f3a57a3f3d1482180517b40a064d34c2b66cfc87309"
+      },
+      {
+        "v": 1,
+        "k": "dailyrace",
+        "d": "2026-10-12",
+        "rank": 3,
+        "u": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10",
+        "h": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee",
+        "ft": 7199,
+        "dist": 60,
+        "hc": false,
+        "r": "026735ff98df8d77908fb2e3e9371df8ef76cbc7fc501cf4ec7c26b04f2afccf"
+      }
+    ],
+    "root": "63e576a0c4e0cbac4966e346aa6fda37fa11b4830526155e83c4333c99c9b15b",
+    "count": 3,
+    "memo": "chartrunner:v1:dailyrace:2026-10-12:63e576a0c4e0cbac4966e346aa6fda37fa11b4830526155e83c4333c99c9b15b:3",
+    "sortedLeaves": [
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":7199,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"hc\":false,\"k\":\"dailyrace\",\"r\":\"026735ff98df8d77908fb2e3e9371df8ef76cbc7fc501cf4ec7c26b04f2afccf\",\"rank\":3,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "hash": "35948f86d615b3bfc26cb53a8c6daef050d82c5b53984abc3fd44c03ae090009"
+      },
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":5400,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"hc\":false,\"k\":\"dailyrace\",\"r\":\"ef6d18ed5e5e81483b1765b08763241ef6a410fe2dee8736755da5d13eba91b7\",\"rank\":1,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "hash": "6a79555c917d0ae4acd3d97cad3d47025e50112e55ba5e4f7615eb3c63094289"
+      },
+      {
+        "canonical": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":5400,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"hc\":true,\"k\":\"dailyrace\",\"r\":\"6d2ce8630d8467200a3f5f3a57a3f3d1482180517b40a064d34c2b66cfc87309\",\"rank\":1,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "hash": "8bf057b0680958a74bd9c2481a5a839b535a4059510a2d6fc97cd86045c44595"
+      }
+    ],
+    "proofs": [
+      {
+        "index": 0,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":7199,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"hc\":false,\"k\":\"dailyrace\",\"r\":\"026735ff98df8d77908fb2e3e9371df8ef76cbc7fc501cf4ec7c26b04f2afccf\",\"rank\":3,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "proof": [
+          {
+            "side": "R",
+            "hash": "6a79555c917d0ae4acd3d97cad3d47025e50112e55ba5e4f7615eb3c63094289"
+          },
+          {
+            "side": "R",
+            "hash": "8bf057b0680958a74bd9c2481a5a839b535a4059510a2d6fc97cd86045c44595"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":5400,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"hc\":false,\"k\":\"dailyrace\",\"r\":\"ef6d18ed5e5e81483b1765b08763241ef6a410fe2dee8736755da5d13eba91b7\",\"rank\":1,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "35948f86d615b3bfc26cb53a8c6daef050d82c5b53984abc3fd44c03ae090009"
+          },
+          {
+            "side": "R",
+            "hash": "8bf057b0680958a74bd9c2481a5a839b535a4059510a2d6fc97cd86045c44595"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "leaf": "{\"d\":\"2026-10-12\",\"dist\":60,\"ft\":5400,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"hc\":true,\"k\":\"dailyrace\",\"r\":\"6d2ce8630d8467200a3f5f3a57a3f3d1482180517b40a064d34c2b66cfc87309\",\"rank\":1,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "16cee3d104a3cb93ab7f19a02649d6ee18c4e0d78177dae68527cf740b9564c3"
+          }
+        ]
+      }
+    ]
+  },
+  "battle": {
+    "kind": "battle",
+    "window": "2026-10-19T04",
+    "standings": [
+      {
+        "battleId": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 1,
+        "userId": "user-0001",
+        "name": "Alice",
+        "equity": "10842.120000",
+        "pnlPct": "8.4212",
+        "trades": 8,
+        "out": false,
+        "finished": false,
+        "fillsHash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "battleId": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 2,
+        "userId": "user-0002",
+        "name": "Bob",
+        "equity": "9731.500000",
+        "pnlPct": "-2.6850",
+        "trades": 5,
+        "out": false,
+        "finished": false,
+        "fillsHash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "battleId": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 3,
+        "userId": "user-0003",
+        "name": "Cy",
+        "equity": "0.000000",
+        "pnlPct": "-100.0000",
+        "trades": 12,
+        "out": true,
+        "finished": false,
+        "fillsHash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      {
+        "battleId": "a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81",
+        "rank": 1,
+        "userId": "user-0002",
+        "name": "Bob",
+        "equity": "11000.000000",
+        "pnlPct": "10.0000",
+        "trades": 3,
+        "out": false,
+        "finished": true,
+        "fillsHash": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "battleId": "a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81",
+        "rank": 2,
+        "userId": "user-0004",
+        "name": "Dee",
+        "equity": "10000.000000",
+        "pnlPct": "0.0000",
+        "trades": 0,
+        "out": false,
+        "finished": false,
+        "fillsHash": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    ],
+    "leaves": [
+      {
+        "v": 1,
+        "k": "battle",
+        "id": "2026-10-19T04",
+        "b": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 1,
+        "u": "cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10",
+        "h": "f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee",
+        "eq": "10842.120000",
+        "pct": "8.4212",
+        "tr": 8,
+        "out": false,
+        "fin": false,
+        "fh": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      },
+      {
+        "v": 1,
+        "k": "battle",
+        "id": "2026-10-19T04",
+        "b": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 2,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "eq": "9731.500000",
+        "pct": "-2.6850",
+        "tr": 5,
+        "out": false,
+        "fin": false,
+        "fh": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+      },
+      {
+        "v": 1,
+        "k": "battle",
+        "id": "2026-10-19T04",
+        "b": "3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f",
+        "rank": 3,
+        "u": "ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6",
+        "h": "37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a",
+        "eq": "0.000000",
+        "pct": "-100.0000",
+        "tr": 12,
+        "out": true,
+        "fin": false,
+        "fh": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+      },
+      {
+        "v": 1,
+        "k": "battle",
+        "id": "2026-10-19T04",
+        "b": "a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81",
+        "rank": 1,
+        "u": "a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310",
+        "h": "9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65",
+        "eq": "11000.000000",
+        "pct": "10.0000",
+        "tr": 3,
+        "out": false,
+        "fin": true,
+        "fh": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      {
+        "v": 1,
+        "k": "battle",
+        "id": "2026-10-19T04",
+        "b": "a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81",
+        "rank": 2,
+        "u": "58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4",
+        "h": "263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938",
+        "eq": "10000.000000",
+        "pct": "0.0000",
+        "tr": 0,
+        "out": false,
+        "fin": false,
+        "fh": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    ],
+    "root": "a1bade0839035f3ca3e83d521c3b68da8467f3073822d774e08b92e89b0aabdc",
+    "count": 5,
+    "memo": "chartrunner:v1:battle:2026-10-19T04:a1bade0839035f3ca3e83d521c3b68da8467f3073822d774e08b92e89b0aabdc:5",
+    "sortedLeaves": [
+      {
+        "canonical": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"9731.500000\",\"fh\":\"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\"fin\":false,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"-2.6850\",\"rank\":2,\"tr\":5,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "hash": "24c7b02e985996d83ce13ab044c03d6d6c080d95fdfd2254cf2c5421163d867d"
+      },
+      {
+        "canonical": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"0.000000\",\"fh\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"fin\":false,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":true,\"pct\":\"-100.0000\",\"rank\":3,\"tr\":12,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "hash": "495c091060ce26beeecf68153acf75b007a53644fc636f2142890af249775813"
+      },
+      {
+        "canonical": "{\"b\":\"a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81\",\"eq\":\"10000.000000\",\"fh\":\"2222222222222222222222222222222222222222222222222222222222222222\",\"fin\":false,\"h\":\"263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"0.0000\",\"rank\":2,\"tr\":0,\"u\":\"58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4\",\"v\":1}",
+        "hash": "4c421b0d0edeba1b073fcdf61d646c2b86a9d81164f3b43b9361e6b7ebf28762"
+      },
+      {
+        "canonical": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"10842.120000\",\"fh\":\"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\",\"fin\":false,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"8.4212\",\"rank\":1,\"tr\":8,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "hash": "6cf37505ca7c2fdf8c8189b64964f5e7e379172a788a1b5da47f4e7793465ef3"
+      },
+      {
+        "canonical": "{\"b\":\"a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81\",\"eq\":\"11000.000000\",\"fh\":\"1111111111111111111111111111111111111111111111111111111111111111\",\"fin\":true,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"10.0000\",\"rank\":1,\"tr\":3,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "hash": "db7478cb6c6c565aab2fa4fa05e73e3f07962e5a89d5778efdeba7de5665b071"
+      }
+    ],
+    "proofs": [
+      {
+        "index": 0,
+        "leaf": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"9731.500000\",\"fh\":\"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\"fin\":false,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"-2.6850\",\"rank\":2,\"tr\":5,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "proof": [
+          {
+            "side": "R",
+            "hash": "495c091060ce26beeecf68153acf75b007a53644fc636f2142890af249775813"
+          },
+          {
+            "side": "R",
+            "hash": "34b7a1dd614311a315badfb73030fa887360541e83e3204b4fd5bae9f9cf9ba2"
+          },
+          {
+            "side": "R",
+            "hash": "db7478cb6c6c565aab2fa4fa05e73e3f07962e5a89d5778efdeba7de5665b071"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "leaf": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"0.000000\",\"fh\":\"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\",\"fin\":false,\"h\":\"37e5c092ea11c0e8377ed7cb67655cbe9743db9622c32c5043ac103184e8564a\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":true,\"pct\":\"-100.0000\",\"rank\":3,\"tr\":12,\"u\":\"ebba193792b200e77597b72e0519249a826db487dee7f7e3a6c0ef10eaae81c6\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "24c7b02e985996d83ce13ab044c03d6d6c080d95fdfd2254cf2c5421163d867d"
+          },
+          {
+            "side": "R",
+            "hash": "34b7a1dd614311a315badfb73030fa887360541e83e3204b4fd5bae9f9cf9ba2"
+          },
+          {
+            "side": "R",
+            "hash": "db7478cb6c6c565aab2fa4fa05e73e3f07962e5a89d5778efdeba7de5665b071"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "leaf": "{\"b\":\"a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81\",\"eq\":\"10000.000000\",\"fh\":\"2222222222222222222222222222222222222222222222222222222222222222\",\"fin\":false,\"h\":\"263a5c92fd278e16d654812a8a6ad1a81770891a20d624f2a135623bf20e4938\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"0.0000\",\"rank\":2,\"tr\":0,\"u\":\"58a3f3097992ceead2bedeefe1187304e12a0ce7935b289677d85fa5d84132b4\",\"v\":1}",
+        "proof": [
+          {
+            "side": "R",
+            "hash": "6cf37505ca7c2fdf8c8189b64964f5e7e379172a788a1b5da47f4e7793465ef3"
+          },
+          {
+            "side": "L",
+            "hash": "9b12243293472d0caa0938243a36e5996bb8f1e4903bac3ad2db98093c64bd21"
+          },
+          {
+            "side": "R",
+            "hash": "db7478cb6c6c565aab2fa4fa05e73e3f07962e5a89d5778efdeba7de5665b071"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "leaf": "{\"b\":\"3f2b9c1e-8d4a-4b6f-9e21-7c5d0a1b2e3f\",\"eq\":\"10842.120000\",\"fh\":\"dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd\",\"fin\":false,\"h\":\"f0a86417a98d7c30b21117edb4cf41047add8ac05215fe7ed7fe4708143b07ee\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"8.4212\",\"rank\":1,\"tr\":8,\"u\":\"cd1b65904801cca9643aaf213b69368b1725517f018a75f2b2548a152584cf10\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "4c421b0d0edeba1b073fcdf61d646c2b86a9d81164f3b43b9361e6b7ebf28762"
+          },
+          {
+            "side": "L",
+            "hash": "9b12243293472d0caa0938243a36e5996bb8f1e4903bac3ad2db98093c64bd21"
+          },
+          {
+            "side": "R",
+            "hash": "db7478cb6c6c565aab2fa4fa05e73e3f07962e5a89d5778efdeba7de5665b071"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "leaf": "{\"b\":\"a0c4e6f8-1b3d-4f5a-8c7e-9d0b2a4c6e81\",\"eq\":\"11000.000000\",\"fh\":\"1111111111111111111111111111111111111111111111111111111111111111\",\"fin\":true,\"h\":\"9f867447463fd16b1713794175b80e4012bfd1e3b643495788a069b0a18a4a65\",\"id\":\"2026-10-19T04\",\"k\":\"battle\",\"out\":false,\"pct\":\"10.0000\",\"rank\":1,\"tr\":3,\"u\":\"a6d5c991038c029b47c91c6eb02528bdb8cfbf7599d42050b45bf1dfe4fe8310\",\"v\":1}",
+        "proof": [
+          {
+            "side": "L",
+            "hash": "8a6472fd10726cfa88506c573582fb579a7fa1cc4aa89147f2ef6e90b3fd87f8"
+          }
+        ]
+      }
+    ]
+  },
+  "fillsHash": [
+    {
+      "name": "no fills",
+      "fills": [],
+      "canonical": "[]",
+      "hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "open, reduce with realized/net, final-sweep liquidation",
+      "fills": [
+        {
+          "t": 1760846400000,
+          "symbol": "SOL",
+          "side": "long",
+          "kind": "open",
+          "orderType": "market",
+          "qty": 12.5,
+          "price": 187.4321,
+          "fee": 1.17145063,
+          "realized": null,
+          "net": null,
+          "leverage": 5
+        },
+        {
+          "t": 1760847300250,
+          "symbol": "SOL",
+          "side": "long",
+          "kind": "reduce",
+          "orderType": "market",
+          "qty": 5,
+          "price": 191.2,
+          "fee": 0.478,
+          "realized": 18.8395,
+          "net": 18.3615,
+          "leverage": 5
+        },
+        {
+          "t": 1760860799999,
+          "symbol": "SOL",
+          "side": "long",
+          "kind": "liquidation",
+          "orderType": "liquidation",
+          "qty": 7.5,
+          "price": 150.12345678,
+          "fee": 0,
+          "realized": null,
+          "net": -280.4627,
+          "leverage": 5
+        }
+      ],
+      "canonical": "[{\"fee\":\"1.17145063\",\"kind\":\"open\",\"leverage\":5,\"net\":null,\"orderType\":\"market\",\"price\":\"187.43210000\",\"qty\":\"12.5000000000\",\"realized\":null,\"seq\":1,\"side\":\"long\",\"symbol\":\"SOL\",\"t\":1760846400000},{\"fee\":\"0.47800000\",\"kind\":\"reduce\",\"leverage\":5,\"net\":\"18.36150000\",\"orderType\":\"market\",\"price\":\"191.20000000\",\"qty\":\"5.0000000000\",\"realized\":\"18.83950000\",\"seq\":2,\"side\":\"long\",\"symbol\":\"SOL\",\"t\":1760847300250},{\"fee\":\"0.00000000\",\"kind\":\"liquidation\",\"leverage\":5,\"net\":\"-280.46270000\",\"orderType\":\"liquidation\",\"price\":\"150.12345678\",\"qty\":\"7.5000000000\",\"realized\":null,\"seq\":3,\"side\":\"long\",\"symbol\":\"SOL\",\"t\":1760860799999}]",
+      "hash": "d2f13a7274cfbfed4ec5b15f9c5ddb4ca1fb361f82bc371d9c542454e0effad4"
+    },
+    {
+      "name": "negative zero is written without the sign",
+      "fills": [
+        {
+          "t": 1760846400000,
+          "symbol": "BTC",
+          "side": "short",
+          "kind": "close",
+          "orderType": "market",
+          "qty": -1e-11,
+          "price": 65000,
+          "fee": 0,
+          "realized": -1e-9,
+          "net": -4e-10,
+          "leverage": 1
+        }
+      ],
+      "canonical": "[{\"fee\":\"0.00000000\",\"kind\":\"close\",\"leverage\":1,\"net\":\"0.00000000\",\"orderType\":\"market\",\"price\":\"65000.00000000\",\"qty\":\"0.0000000000\",\"realized\":\"0.00000000\",\"seq\":1,\"side\":\"short\",\"symbol\":\"BTC\",\"t\":1760846400000}]",
+      "hash": "62917553ecc089cd761fbe050241a0b62d84a01a5ca4b7e4929b9092cca3d02a"
+    }
+  ]
+}
