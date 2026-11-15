@@ -1,0 +1,50 @@
+name: Live check
+
+# Calls ChartRunner's production feed the way the plugin does, every three hours and on demand. A failure opens (or
+# updates) one issue titled "Live check failing", which notifies the repository's watchers; the next green run closes it.
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: live-check
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check production
+        id: check
+        run: |
+          set +e
+          python3 scripts/live_check.py > report.json
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+          cat report.json
+      - name: Open or update the failure issue
+        if: steps.check.outputs.code != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body=$(printf 'The scheduled live check failed (run %s).\n\n```json\n%s\n```\n' "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" "$(cat report.json)")
+          number=$(gh issue list --state open --search 'in:title "Live check failing"' --json number --jq '.[0].number')
+          if [ -n "$number" ]; then gh issue comment "$number" --body "$body"; else gh issue create --title "Live check failing" --body "$body"; fi
+          exit 1
+      - name: Close the failure issue after a green run
+        if: steps.check.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          number=$(gh issue list --state open --search 'in:title "Live check failing"' --json number --jq '.[0].number')
+          if [ -n "$number" ]; then gh issue close "$number" --comment "Live check green again: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"; fi

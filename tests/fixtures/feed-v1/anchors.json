@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "fetchedAt": "2026-11-15T12:00:00.000Z",
+  "anchors": [
+    {
+      "kind": "cup",
+      "id": "00000000-0000-4000-8000-000000000001",
+      "root": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "count": 3,
+      "signature": "5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555",
+      "slot": 42,
+      "cluster": "mainnet-beta",
+      "signer": "99999999999999999999999999999999999999999999",
+      "createdAt": "2026-11-15T12:00:00.000Z"
+    }
+  ]
+}

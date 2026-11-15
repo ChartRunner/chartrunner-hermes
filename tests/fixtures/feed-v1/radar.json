@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "fetchedAt": "2026-11-15T12:00:00.000Z",
+  "tab": "new",
+  "computedAt": null,
+  "tokens": [
+    {
+      "mint": "111111111111111111111111111111122",
+      "symbol": "T1",
+      "name": "Token 1",
+      "platform": "pump",
+      "status": "curve",
+      "createdAt": "2026-10-14T11:59:00.000Z",
+      "ageMin": 1,
+      "priceUsd": 0.001,
+      "mcapUsd": 5000,
+      "liquidityUsd": 2000,
+      "vol5mUsd": 12,
+      "buyers5m": 3,
+      "sellers5m": 2,
+      "dP5mPct": 4.5,
+      "safety": {
+        "level": "green",
+        "flags": []
+      }
+    },
+    {
+      "mint": "111111111111111111111111111111132",
+      "symbol": "T2",
+      "name": "Token 2",
+      "platform": "pump",
+      "status": "curve",
+      "createdAt": "2026-10-14T11:58:00.000Z",
+      "ageMin": 2,
+      "priceUsd": 0.001,
+      "mcapUsd": 5000,
+      "liquidityUsd": 2000,
+      "vol5mUsd": 12,
+      "buyers5m": 3,
+      "sellers5m": 2,
+      "dP5mPct": 4.5,
+      "safety": {
+        "level": "green",
+        "flags": []
+      }
+    }
+  ]
+}
