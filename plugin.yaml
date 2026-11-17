@@ -1,12 +1,11 @@
 name: chartrunner
-version: 0.1.0
-description: "Read ChartRunner radar, cup results, and Solana memo checks, and open the app for a spot review, a perp chart, a room, or a battle. Hermes never signs."
+version: 0.2.0
+description: "Read ChartRunner radar, cup results, and on-chain anchors through the public feed, check them, and open practice charts, rooms, or battles. Paper money only. Hermes never signs."
 author: ChartRunner
 provides_tools:
   - chartrunner_verify
   - chartrunner_cup
+  - chartrunner_anchors
   - chartrunner_radar
-  - chartrunner_spot
-  - chartrunner_perps
-  - chartrunner_room
-  - chartrunner_battle
+  - chartrunner_link
+  - chartrunner_status

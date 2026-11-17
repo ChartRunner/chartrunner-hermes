@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "fetchedAt": "2026-11-15T12:00:00.000Z",
+  "cupId": "00000000-0000-4000-8000-000000000001",
+  "name": "Friday Cup b",
+  "hash": "7789eba3e107be88573512df09920360aebac978911746eef729ea3082f24add",
+  "resultsJson": "{\"version\":1,\"standings\":[{\"rank\":1,\"userId\":\"00000000-0000-4000-8000-0000000000aa\",\"name\":\"Ada\",\"equity\":\"10500\",\"pnl\":\"500\",\"pnlPct\":\"5\",\"trades\":3,\"wins\":2,\"winRate\":\"66.7\",\"liquidations\":0,\"realized\":\"500\",\"disqualified\":false,\"dqReason\":null,\"fills\":3,\"fillsHash\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}]}",
+  "results": {
+    "standings": [
+      {
+        "rank": 1,
+        "name": "Ada",
+        "equity": "10500",
+        "pnl": "500",
+        "pnlPct": "5",
+        "trades": 3,
+        "disqualified": false,
+        "fillsHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "userId": "00000000-0000-4000-8000-0000000000aa",
+        "wins": 2,
+        "winRate": "66.7",
+        "liquidations": 0,
+        "realized": "500",
+        "dqReason": null,
+        "fills": 3
+      }
+    ],
+    "version": 1
+  }
+}
